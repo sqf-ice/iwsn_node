@@ -250,8 +250,5 @@
 		<scannerConfigBuildInfo instanceId="fr.ac6.managedbuild.config.gnu.cross.exe.release.1813939990;fr.ac6.managedbuild.config.gnu.cross.exe.release.1813939990.;fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.388473632;fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.input.cpp.487115278">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="fr.ac6.managedbuild.config.gnu.cross.exe.debug.497569509;fr.ac6.managedbuild.config.gnu.cross.exe.debug.497569509.;fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.388473632;fr.ac6.managedbuild.tool.gnu.cross.cpp.compiler.input.cpp.1736601029">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		</scannerConfigBuildInfo>
 	</storageModule>
 </cproject>

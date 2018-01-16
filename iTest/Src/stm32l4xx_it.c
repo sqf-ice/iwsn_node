@@ -34,7 +34,6 @@
 #include <stm32l4xx.h>
 #include <stm32l4xx_hal.h>
 #include "stm32l4xx_it.h"
-#include "uart.h"
 
 /* USER CODE BEGIN 0 */
 
@@ -241,6 +240,11 @@ void UART4_IRQHandler(void)
 	  /* USER CODE BEGIN UART4_IRQn 1 */
 
 	  /* USER CODE END UART4_IRQn 1 */
+}
+
+void EXTI0_IRQHandler(void)
+{
+	HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
 }
 
 /* USER CODE BEGIN 1 */

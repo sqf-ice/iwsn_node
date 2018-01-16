@@ -11,7 +11,7 @@
 #include "blink.h"
 #include "echo.h"
 #include "scheduler.h"
-#include "radio_spi.h"
+
 
 //=========================== define ==========================================
 
@@ -52,9 +52,12 @@ int main(void)
 }
 
 //=========================== public ==========================================
+
+//=========================== private =========================================
 void test_radio_send_pkt()
   {
     led_toggle();
+    //radio_setStartFrameCb(radio_capture_cbt cb);
     //test radio sendMsg
     uint8_t rfmsg[] = {0x61,0x88,0x7C,0x01,0x00,0x55,0x00,0x22,0x00,0x20,0x5C,0xFE,0xF2,0xCB,0x00,0x00};
 
@@ -71,8 +74,6 @@ void test_radio_send_pkt()
     radio_txNow();
 
   }
-
-//=========================== private =========================================
 
 //=========================== interrupt handlers ==============================
 void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim)
@@ -92,6 +93,17 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
            uart_rx_isr();
         #endif /* HAVE_UART */
     }
+}
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+  if (GPIO_Pin == GPIO_PIN_0)
+  {
+	    led_toggle();
+        #ifdef HAVE_RADIO
+           radio_isr();
+ 	 	#endif /* HAVE_RADIO */
+  }
 }
 
 //=========================== error processing ==============================

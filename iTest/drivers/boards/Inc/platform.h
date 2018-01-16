@@ -239,8 +239,8 @@ extern "C" {
 #define port_INLINE                     inline
 
 //radio IRQ
-#define PORT_RADIO_IRQ_ENABLE()    HAL_NVIC_EnableIRQ(EXTI15_10_IRQn)
-#define PORT_RADIO_IRQ_DISABLE()   HAL_NVIC_DisableIRQ(EXTI15_10_IRQn)
+#define PORT_RADIO_IRQ_ENABLE()    HAL_NVIC_EnableIRQ(EXTI0_IRQn)
+#define PORT_RADIO_IRQ_DISABLE()   HAL_NVIC_DisableIRQ(EXTI0_IRQn)
 
 #define PORT_PIN_RADIO_SLP_TR_CNTL_HIGH()     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, SET)
 #define PORT_PIN_RADIO_SLP_TR_CNTL_LOW()      HAL_GPIO_WritePin(GPIOB, GPIO_PIN_1, RESET);

@@ -97,8 +97,8 @@ void radioIRQ_Init(void)
   NVIC_Init(&NVIC_InitStructure);*/
 
   /* Enable and set EXTI lines 10 to 15 Interrupt to the lowest priority */
-   HAL_NVIC_SetPriority(EXTI15_10_IRQn, 2, 0);
-   HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
+   HAL_NVIC_SetPriority(EXTI0_IRQn, 2, 0);
+   HAL_NVIC_EnableIRQ(EXTI0_IRQn);
 }
 
 
