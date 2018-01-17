@@ -14,14 +14,22 @@
 
 
 //=========================== define ==========================================
+enum{
+	RADIO_RX  	        = 0,
+	RADIO_CIRCULAR_TX 	= 1,
+	RADIO_TIMER_TX		= 2,
+};
 
 //=========================== typedef =========================================
 
 //=========================== variables =======================================
-
+uint8_t m=RADIO_RX;
 //=========================== prototypes ======================================
 extern uint8_t radio_spiReadReg(uint8_t reg_addr);
 void test_radio_send_pkt();
+void test_radio_rx();
+void test_radio_startFrameCb(PORT_TIMER_WIDTH n);
+void test_radio_endFrameCb(PORT_TIMER_WIDTH n);
 //=========================== main ============================================
 int main(void)
 {
@@ -42,9 +50,10 @@ int main(void)
    register_value   = radio_spiReadReg(value);
    if(register_value == 0x1F)
    {
+	   test_radio_rx();
 	   while(1){
 	   	   HAL_Delay(1000);
-	   	   test_radio_send_pkt();
+	   	   //test_radio_send_pkt();
 	   }
    }
 
@@ -75,6 +84,50 @@ void test_radio_send_pkt()
 
   }
 
+void test_radio_rx()
+{
+    // Turn off the radio
+    radio_rfOff();
+
+    //set the start frame callback
+    radio_setStartFrameCb(test_radio_startFrameCb);
+
+    // Set the end frame callback
+    radio_setEndFrameCb(test_radio_endFrameCb);
+
+    // Set the radio channel
+    radio_setChannel(26);
+
+    // Turn on the radio
+    radio_rfOn();
+
+    // Enable rx packet
+    radio_rxEnable();
+
+    // Start rx packet
+    radio_rxNow();
+
+    //led_toggle();
+}
+
+void test_radio_startFrameCb(PORT_TIMER_WIDTH n)
+{
+   led_toggle();
+}
+
+void test_radio_endFrameCb(PORT_TIMER_WIDTH n)
+{
+  //leds_toggle();
+  if(m==RADIO_RX)
+  {
+      //led_toggle();
+      // Enable rx packet
+      radio_rxEnable();
+      // Start rx packet after the first receive the first pkt
+      radio_rxNow();
+  }
+}
+
 //=========================== interrupt handlers ==============================
 void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim)
 {
@@ -99,7 +152,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
   if (GPIO_Pin == GPIO_PIN_0)
   {
-	    led_toggle();
+	    //led_toggle();
         #ifdef HAVE_RADIO
            radio_isr();
  	 	#endif /* HAVE_RADIO */
