@@ -59,6 +59,9 @@ void board_init(void)
   
   /* Initialize the RADIO configuration. */
   radio_init();
+
+  /* Initialize the IWSN configuration. */
+  iwsn_init();
 }
 
 void board_sleep(void)

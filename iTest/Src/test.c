@@ -30,32 +30,35 @@ void test_radio_send_pkt();
 void test_radio_rx();
 void test_radio_startFrameCb(PORT_TIMER_WIDTH n);
 void test_radio_endFrameCb(PORT_TIMER_WIDTH n);
+extern void sendAdv();
 //=========================== main ============================================
 int main(void)
 {
    /* Initialize. */
    board_init();
-   //scheduler_init();
+   scheduler_init();
 
    /* Applications Initialize. */
    //blink_init();
    //timers_init();
-   echo_init();
+   //echo_init();
+
 
    /* Start. */
    //blink_start();
-   //scheduler_start();
-   uint8_t register_value;
-   uint8_t value = 0x1E;
-   register_value   = radio_spiReadReg(value);
-   if(register_value == 0x1F)
-   {
-	   test_radio_rx();
-	   while(1){
-	   	   HAL_Delay(1000);
+   iwsn_start();
+   scheduler_start();
+   //uint8_t register_value;
+   //uint8_t value = 0x1E;
+   //register_value   = radio_spiReadReg(value);
+   //if(register_value == 0x1F)
+  // {
+	   //test_radio_rx();
+	   //while(1){
+	   	   //HAL_Delay(1000);
 	   	   //test_radio_send_pkt();
-	   }
-   }
+	   //}
+   //}
 
    return 0;
 }
@@ -128,6 +131,7 @@ void test_radio_endFrameCb(PORT_TIMER_WIDTH n)
   }
 }
 
+
 //=========================== interrupt handlers ==============================
 void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim)
 {
@@ -135,6 +139,21 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim)
 	{
 	    /* Call ISR. */
 	    ctimer_isr();
+	}
+
+	if(htim->Instance==TIM2)
+	{
+		/* Call ISR. */
+		rtimer_isr(RTIMER_COMPARE);
+	}
+}
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+	if(htim->Instance==TIM2)
+	{
+	    /* Call ISR. */
+	    rtimer_isr(RTIMER_OVERFLOW);
 	}
 }
 

@@ -152,9 +152,9 @@ void radio_rfOff()
 
 #ifdef HAVE_IWSN
 #if ((SET_CAN == 0) | (SET_NODE_TYPE == 1))
-	leds_radio_off();
+	//leds_radio_off();
 #else
-	leds_can_radio_off();
+	//leds_can_radio_off();
 #endif
 #endif
 
@@ -193,7 +193,7 @@ void radio_txEnable()
 
 #ifdef HAVE_IWSN
 #if ((SET_CAN == 0) | (SET_NODE_TYPE == 1))
-	leds_radio_on();
+	//leds_radio_on();
 #else
 	leds_can_radio_on();
 #endif
@@ -248,9 +248,9 @@ void radio_rxEnable()
 
 #ifdef HAVE_IWSN
 #if ((SET_CAN == 0) | (SET_NODE_TYPE == 1))
-	leds_radio_on();
+	//leds_radio_on();
 #else
-	leds_can_radio_on();
+	//leds_can_radio_on();
 #endif
 #endif
 
