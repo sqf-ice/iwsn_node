@@ -1,7 +1,7 @@
 /**
 \brief General IWSN "blink.c"
 
-\author Yipeng Cun <cunyipeng@bjtu.edu.cn>, Jan 2018.
+\author Hongchao Wang <hcwang@bjtu.edu.cn>, Yipeng Cun <cunyipeng@bjtu.edu.cn>, Jan 2018.
 */
 
 //=========================== include =========================================
@@ -24,7 +24,7 @@ void blink_timer_fired(void);
 //=========================== public ==========================================
 void blink_init(void)
 {
-  /* Initialize local veraibles. */
+  /* Initialize local variables. */
     memset(&blink_vars, 0, sizeof(blink_vars_t));
 }
 

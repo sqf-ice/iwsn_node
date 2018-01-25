@@ -65,9 +65,10 @@ void spi_txrx(uint8_t*     bufTx,
                  uint8_t      maxLenBufRx,
                  spi_first_t  isFirst,
                  spi_last_t   isLast);
-void MySPI_SendData(uint8_t da);
-uint8_t MySPI_ReceiveData(void);
+//void MySPI_SendData(uint8_t da);
+//uint8_t MySPI_ReceiveData(void);
 uint8_t SPI_ReadWriteByte(uint8_t TxData);
+int32_t spi_write_and_read(SPI_HandleTypeDef* hspi, uint8_t* buf, int32_t len);
 //=========================== macros ==========================================
 
 #ifdef __cplusplus

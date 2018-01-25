@@ -1,7 +1,7 @@
 /*
  * Copyright: Beijing Jiaotong University, 2018-2022.
  * Filename: rtimer.h
- * Author: Yipeng Cun <cunyipeng@bjtu.edu.cn>
+ * Author: Hongchao Wang <hcwang@bjtu.edu.cn>, Yipeng Cun <cunyipeng@bjtu.edu.cn>
  * Date: Jan 9th, 2018
  * Function: the source/header of the project
  */

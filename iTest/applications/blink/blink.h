@@ -1,7 +1,7 @@
 /**
 \brief General IWSN "blink.h"
 
-\author Yipeng Cun <cunyipeng@bjtu.edu.cn>, Jan 2018.
+\author Hongchao Wang <hcwang@bjtu.edu.cn>, Yipeng Cun <cunyipeng@bjtu.edu.cn>, Jan 2018.
 */
 
 #ifndef __BLINK_H
@@ -30,7 +30,6 @@ typedef struct
 //=========================== prototypes ======================================
 void blink_init(void);
 void blink_start(void);
-void blink_start_1(void);
 
 #ifdef __cplusplus
 }

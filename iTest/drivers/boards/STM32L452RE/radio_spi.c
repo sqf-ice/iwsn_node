@@ -7,6 +7,7 @@
  *		Dong Yang 		<dyang@bjtu.edu.cn>
  *		Hongchao Wang 	<hcwang@bjtu.edu.cn>
  *		Hao Zhang 		<zh1047@gmail.com>
+ *		Yipeng Cun      <cunyipeng@bjtu.edu.cn>
  */
 
 //=========================== include =========================================
@@ -31,7 +32,7 @@ void radioIRQ_Init();
 /*
 radio-spi ¹Ü½Å
 PA4  SEL
-PB3  SCK
+PA5  SCK
 PA6 MISO
 PA7 MOSI
 

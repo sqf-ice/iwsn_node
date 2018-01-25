@@ -1,7 +1,7 @@
 /*
  * Copyright: Beijing Jiaotong University, 2018-2022.
  * Filename: board.h
- * Author: Yipeng Cun <cunyipeng@bjtu.edu.cn>
+ * Author: Hongchao Wang <hcwang@bjtu.edu.cn>, Yipeng Cun <cunyipeng@bjtu.edu.cn>
  * Date: Jan 5th, 2018
  * Function: the source/header of the project
  */
@@ -21,8 +21,9 @@ extern "C" {
 #include "led.h"
 #include "spi.h"
 #include "radio.h"
+#include "adxl372.h"
 #include "radio_spi.h"
-#include "iwsn.h"
+
 //=========================== define ==========================================
 
 //=========================== typedef =========================================

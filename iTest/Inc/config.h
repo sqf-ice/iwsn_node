@@ -19,17 +19,19 @@
 #define APP_TRACE
 /*these are necessarily*/
 #define SET_RADIO_TYPE      0       // 0: RF212		1: RF231
-#define SET_AGGREGATE       1       // 0: close		1: open
+#define SET_AGGREGATE       0       // 0: close		1: open
 #define SET_CAN				0		// 0: close     1: open   2:Simulation
 #define RETRY_TIME          6       // retransmit times
 #define SET_UART		    1		// 0:close		1:open
 #define SET_RADIPCHIP_TYPE  1		// 0:212		1:212b
 #define SET_UART_DEBUG      0       // 0:no debug	1:have debug
-#define SET_TSL	            0	    //0 :close   1:open
-#define SET_ELECTRICITY     0       //0:clise    1:open
-#define SET_SAMPLING        1       //0:clise    1:open
-#define SET_SAMPLE_DEBUG    0       //0:close    1:open
-
+#define SET_TSL	            0	    // 0 :close   1:open
+#define SET_ELECTRICITY     0       // 0:clise    1:open
+#define SET_SAMPLING        1       // 0:clise    1:open
+#define SET_SAMPLE_DEBUG    0       // 0:close    1:open
+#define SET_IWSN            1       // 0:close    1:open
+#define SET_BLINK           1       // 0:close    1:open
+#define SET_ECHO            0       // 0:close    1:open
 
 #if SET_CAN == 2
 #define SET_CAN_TYPE        CAN_TYPE_QIEGE
@@ -59,7 +61,7 @@
 
 #if (SET_RF212 == 0)
 #define RF212_780M
-#define RADIO_CHANNEL 	2 // 780M(0-3)   780M-0  782M-1 784M-2 786M-3
+#define RADIO_CHANNEL 	3 // 780M(0-3)   780M-0  782M-1 784M-2 786M-3
 #else
 #define RF212_900M
 #define RADIO_CHANNEL 	2 // 900M(1-10)
@@ -68,7 +70,7 @@
 #elif SET_RADIO_TYPE == 1
 
 #define RADIO_CHIP_AT86RF231
-#define RADIO_CHANNEL 25 // channel the node listens on to synchronize
+#define RADIO_CHANNEL 26 // channel the node listens on to synchronize
 
 #endif
 
@@ -106,6 +108,20 @@
 #define HAVE_AGGREGATE
 #endif
 
+#if SET_IWSN == 1
+#define HAVE_IWSN
+#define HAVE_RADIO	      //this is set to the EINT
+#endif
+
+#if SET_BLINK == 1
+#define HAVE_BLINK
+#endif
+
+#if SET_ECHO == 1
+#define HAVE_ECHO
+#define HAVE_UART
+#endif
+
 #if SET_TSL
 #define HAVE_TSL
 #endif
@@ -119,9 +135,6 @@
 #define RSSI_THRESHOLD    -87
 #endif
 
-#define HAVE_RADIO  			//this is set to the EINT
 #define HAVE_ADV_ADDITIONAL  	//this is set to the queue_macGetAdvPacket()
-#define HAVE_IWSN				//this is set to the leds_radio_on
-
 
 #endif /* CONFIG_H_ */

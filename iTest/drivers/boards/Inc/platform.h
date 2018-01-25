@@ -1,7 +1,7 @@
 /*
  * Copyright: Beijing Jiaotong University, 2018-2022.
  * Filename: platform.h
- * Author: Yipeng Cun <cunyipeng@bjtu.edu.cn>
+ * Author: Hongchao Wang <hcwang@bjtu.edu.cn>, Yipeng Cun <cunyipeng@bjtu.edu.cn>
  * Date: Jan 5th, 2018
  * Function: the source/header of the project
  */
@@ -52,13 +52,15 @@ extern "C" {
 /* Definitions for led */
 #define led_t                  uint16_t
 
+/*
 #define LEDS_RED_RCC            RCC_AHBPeriph_GPIOB 
 #define LEDS_RED_GPIO           GPIOB
 #define LEDS_RED_PIN            GPIO_PIN_3
+*/
 
-#define LED2_RCC_ENABLE    __HAL_RCC_GPIOA_CLK_ENABLE
-#define LED2_GPIO_Port  GPIOA
-#define LED2_PIN  GPIO_PIN_5
+#define LD5_RCC_ENABLE    __HAL_RCC_GPIOC_CLK_ENABLE
+#define LD5_GPIO_Port  GPIOC
+#define LD5_PIN  GPIO_PIN_0
 
 #define LED2_ON         0x0001
 
@@ -226,7 +228,7 @@ extern "C" {
 
 /* Definitons for TSCH. */
 // Time-slot related
-#define PORT_TsSlotDuration             20000
+#define PORT_TsSlotDuration             10000
 // Execution speed related
 #define PORT_maxTxDataPrepare           1000    // 1000us (measured 584us)
 #define PORT_maxRxAckPrepare            305     //  300us (measured  64us)
@@ -248,6 +250,8 @@ extern "C" {
 // radio reset line
 #define PORT_PIN_RADIO_RESET_HIGH()       HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, SET)
 #define PORT_PIN_RADIO_RESET_LOW()        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, RESET)
+
+#define PORT_RADIO_CAPTURED_TIME()	rtimer_getCapturedTime()
 //=========================== typedef =========================================
 
 //=========================== variables =======================================

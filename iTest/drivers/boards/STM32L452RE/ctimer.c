@@ -1,7 +1,7 @@
 /*
  * Copyright: Beijing Jiaotong University, 2018-2022.
  * Filename: ctimer.c
- * Author: Yipeng Cun <cunyipeng@bjtu.edu.cn>
+ * Author: Hongchao Wang <hcwang@bjtu.edu.cn>, Yipeng Cun <cunyipeng@bjtu.edu.cn>
  * Date: Jan 5th, 2018
  * Function: the source/header of the project
  */
@@ -43,7 +43,7 @@ void ctimer_init(void)
     *  prescaler = 64000000/10000-1
 	*  CounterMode  = upCounting mode. */
 	/* Compute the prescaler value to have TIMx counter clock equal to 10000 Hz */
-	  uwPrescalerValue = (uint32_t)(64000000 / 10000) - 1;
+	  uwPrescalerValue = (uint32_t)(72000000 / 10000) - 1;
 
 	  htim3.Instance = TIM3;
 

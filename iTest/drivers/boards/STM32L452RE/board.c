@@ -1,13 +1,14 @@
 /*
  * Copyright: Beijing Jiaotong University, 2018-2022.
  * Filename: board.c
- * Author: Yipeng Cun <cunyipeng@bjtu.edu.cn>
+ * Author: Hongchao Wang <hcwang@bjtu.edu.cn>, Yipeng Cun <cunyipeng@bjtu.edu.cn>
  * Date: Jan 5th, 2018
  * Function: the source/header of the project
  */
 
 //=========================== include =========================================
 #include "board.h"
+
 
 //=========================== define ==========================================
 
@@ -34,14 +35,8 @@ void board_init(void)
   /* Initialize the GPIO configuration. */
   gpio_init (); 
   
-  /* Initialize the SYSTICK configuration. */
-  //systick_init();
-  
   /* Initialize the LED configuration. */
   led_init();
-  
-  /* Initialize the BUTTON configuration. */
-  //button_init();
 
   /* Initialize the CTIMER configuration. */
   ctimer_init();
@@ -60,8 +55,34 @@ void board_init(void)
   /* Initialize the RADIO configuration. */
   radio_init();
 
-  /* Initialize the IWSN configuration. */
-  iwsn_init();
+  adxl372_dev *adxl372_InitStruct;
+  adxl372_init_param init_param;
+/*  GPIO_InitTypeDef GPIO_InitStruct1;
+  GPIO_InitTypeDef GPIO_InitStruct2;
+
+  adxl372_InitStruct.spi_desc                 = &hspi2;
+  adxl372_InitStruct.gpio_int1                = &GPIO_InitStruct1;
+  adxl372_InitStruct.gpio_int2                = &GPIO_InitStruct2;
+  adxl372_InitStruct.bw                       = ADXL372_BW_400HZ;
+  adxl372_InitStruct.odr                      = ADXL372_ODR_800HZ;
+  adxl372_InitStruct.wur                      = ADXL372_WUR_512ms;
+  adxl372_InitStruct.act_proc_mode            = ADXL372_DEFAULT;
+  adxl372_InitStruct.th_mode                  = ADXL372_INSTANT_ON_LOW_TH;
+  adxl372_InitStruct.fifo_config.fifo_mode    = ADXL372_FIFO_STREAMED;
+  adxl372_InitStruct.fifo_config.fifo_format  = ADXL372_XYZ_FIFO;
+  adxl372_InitStruct.fifo_config.fifo_samples = 170;*/
+
+  init_param.spi_init                  = hspi2.Init;
+  init_param.bw                        = ADXL372_BW_400HZ;
+  init_param.odr                       = ADXL372_ODR_800HZ;
+  init_param.wur                       = ADXL372_WUR_512ms;
+  init_param.act_proc_mode             = ADXL372_DEFAULT;
+  init_param.th_mode                   = ADXL372_INSTANT_ON_LOW_TH;
+  init_param.fifo_config.fifo_mode     = ADXL372_FIFO_STREAMED;
+  init_param.fifo_config.fifo_format   = ADXL372_XYZ_FIFO;
+  init_param.fifo_config.fifo_samples  = 170;
+
+  adxl372_init(&adxl372_InitStruct, init_param);
 }
 
 void board_sleep(void)
@@ -151,17 +172,5 @@ static void rcc_init(void)
 static void gpio_init(void)
 {
 }
-
-/*
-static void systick_init(void)
-{
-  Configure the SysTick to have interrupt in 1ms time basis
-  HAL_SYSTICK_Config(SystemCoreClock/PORT_CLOCKS_PER_SEC);
-
-  Configure the SysTick IRQ priority
-  HAL_NVIC_SetPriority(SysTick_IRQn, SYSTICK_IRQ_PRIORITY ,0);
-
-}
-*/
 
 //=========================== interrupt handlers ==============================

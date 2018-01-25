@@ -17,7 +17,7 @@
 
 //=========================== define ==========================================
 
-#define DEFAULT_FRAME_LENGTH	  50    // the slot number of per superframe
+#define DEFAULT_FRAME_LENGTH	 100    // the slot number of per superframe
 #define MAXACTIVESLOTS            50    // the maximum number of active slots
 #define NUMSLOTSPERBLOCK           4    // number of slots per block assigned to a node
 #define RESERVEDSLOTS              0    // the slot number of reserved slots for join and re-TX

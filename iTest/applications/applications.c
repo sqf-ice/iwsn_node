@@ -15,14 +15,11 @@
 #include "echo.h"
 #endif /* HAVE_ECHO */
 
-#ifdef HAVE_CONSOLE
-#include "console.h"
-#endif /* HAVE_CONSOLE */
+#ifdef HAVE_IWSN
+#include "iwsn.h"
+#endif /* HAVE_IWSN */
 
-#ifdef HAVE_TRX
-#include "trx.h"
-#endif /* HAVE_TRX */
-
+#include "vibration.h"
 //=========================== define ==========================================
 
 //=========================== typedef =========================================
@@ -37,39 +34,36 @@
 void applications_init(void)
 {
 #ifdef HAVE_BLINK
-  blink_init();
+  //blink_init();
 #endif /* HAVE_BLINK */
   
 #ifdef HAVE_ECHO
   echo_init();
 #endif /* HAVE_ECHO */
-  
-#ifdef HAVE_CONSOLE
-  console_init();
-#endif /* HAVE_CONSOLE */
-  
-#ifdef HAVE_TRX
-  trx_init();
-#endif /* HAVE_TRX */
+
+#ifdef HAVE_IWSN
+  //iwsn_init();
+#endif /* HAVE_IWSN */
+
+  vibration_init();
 }
 
 void applications_start(void)
 {  
 #ifdef HAVE_BLINK
-  blink_start();
+  //blink_start();
 #endif /* HAVE_BLINK */
   
 #ifdef HAVE_ECHO
   echo_start();
 #endif /* HAVE_ECHO */
-  
-#ifdef HAVE_CONSOLE
-  console_start();
-#endif /* HAVE_CONSOLE */
-  
-#ifdef HAVE_TRX
-  trx_start();
-#endif /* HAVE_TRX */
+
+#ifdef HAVE_IWSN
+  //iwsn_start();
+#endif /* HAVE_IWSN */
+
+  vibration_start();
+
 }
 
 //=========================== private =========================================

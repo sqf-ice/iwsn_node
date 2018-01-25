@@ -1,8 +1,8 @@
 /*
- * Copyright: Beijing Mesh Technology Co. Ltd, 2016-2020.
+ * Copyright: Beijing Jiaotong University, 2018-2022.
  * Filename: spi.c
- * Author: Hongchao Wang <hcwang@bjtu.edu.cn>
- * Date: Jun 12th, 2017
+ * Author: Hongchao Wang <hcwang@bjtu.edu.cn>, Yipeng Cun <cunyipeng@bjtu.edu.cn>
+ * Date: Jan 9th, 2018
  * Function: the source/header of the project
  */
 
@@ -16,46 +16,51 @@
 //=========================== variables =======================================
 spi_vars_t spi_vars;
 SPI_HandleTypeDef hspi1;
+SPI_HandleTypeDef hspi2;
 //=========================== prototypes ======================================
 
 //=========================== main ============================================
 
 //=========================== public ==========================================
-void spi_init(void)
+
+/*
+SPI1:	NSS---PA4
+		SCK---PA5
+		MISO---PA6
+		MOSI---PA7
+
+SPI2:	NSS---PB12
+		SCK---PB13
+		MISO---PB14
+		MOSI---PB15
+*/
+
+void spi_init()
 {
+  /* SPI1 init */
   GPIO_InitTypeDef GPIO_InitStruct;
   
-  /* Peripheral clock enable */
   __HAL_RCC_SPI1_CLK_ENABLE();
   
-  /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOA_CLK_ENABLE();
-  __HAL_RCC_GPIOB_CLK_ENABLE();
 
-  /**SPI1 GPIO Configuration
-  PA4     ------> SPI1_NSS
-  PB3     ------> SPI1_SCK
-  PA6     ------> SPI1_MISO
-  PA7     ------> SPI1_MOSI
-  */
-
-  GPIO_InitStruct.Pin       = GPIO_PIN_3;
+  GPIO_InitStruct.Pin       = GPIO_PIN_5;
   GPIO_InitStruct.Mode      = GPIO_MODE_AF_PP;
   GPIO_InitStruct.Pull      = GPIO_NOPULL;
   GPIO_InitStruct.Speed     = GPIO_SPEED_FREQ_VERY_HIGH;
   GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  GPIO_InitStruct.Pin   = GPIO_PIN_6;
+  GPIO_InitStruct.Pin       = GPIO_PIN_6;
   GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  GPIO_InitStruct.Pin = GPIO_PIN_7;
+  GPIO_InitStruct.Pin       = GPIO_PIN_7;
   GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  GPIO_InitStruct.Pin             = GPIO_PIN_4;
-  GPIO_InitStruct.Mode            = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pin       = GPIO_PIN_4;
+  GPIO_InitStruct.Mode      = GPIO_MODE_OUTPUT_PP;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   hspi1.Instance = SPI1;
@@ -77,11 +82,57 @@ void spi_init(void)
     _Error_Handler(__FILE__, __LINE__);
   }
   
-  /* Enable SPIx. */
+  /* Enable SPI1 */
   __HAL_SPI_ENABLE(&hspi1);
   
-  /* Set SPIx CSS high. */
+  /* Set SPI1 CSS high */
   HAL_GPIO_WritePin(GPIOA ,GPIO_PIN_4 , GPIO_PIN_SET);
+
+  /* SPI2 init */
+  __HAL_RCC_SPI2_CLK_ENABLE();
+
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+
+  GPIO_InitStruct.Pin       = GPIO_PIN_5;
+  GPIO_InitStruct.Mode      = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull      = GPIO_NOPULL;
+  GPIO_InitStruct.Speed     = GPIO_SPEED_FREQ_VERY_HIGH;
+  GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  GPIO_InitStruct.Pin       = GPIO_PIN_6;
+  GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  GPIO_InitStruct.Pin       = GPIO_PIN_7;
+  GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  GPIO_InitStruct.Pin       = GPIO_PIN_4;
+  GPIO_InitStruct.Mode      = GPIO_MODE_OUTPUT_PP;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  hspi2.Instance = SPI2;
+  hspi2.Init.Direction = SPI_DIRECTION_2LINES;
+  hspi2.Init.Mode = SPI_MODE_MASTER;
+  hspi2.Init.DataSize = SPI_DATASIZE_8BIT;
+  hspi2.Init.CLKPolarity = SPI_POLARITY_HIGH;
+  hspi2.Init.CLKPhase = SPI_PHASE_2EDGE;
+  hspi2.Init.NSS = SPI_NSS_SOFT;
+  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_256;
+  hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  hspi2.Init.CRCPolynomial = 7;
+  if (HAL_SPI_Init(&hspi2) != HAL_OK)
+  {
+    _Error_Handler(__FILE__, __LINE__);
+  }
+
+  /* Enable SPI2. */
+  __HAL_SPI_ENABLE(&hspi2);
+
+  /* Set SPI2 CSS high. */
+  HAL_GPIO_WritePin(GPIOB ,GPIO_PIN_12 , GPIO_PIN_SET);
+
 }
 
 void spi_txrx(uint8_t*     bufTx,
@@ -179,7 +230,7 @@ void spi_txrx(uint8_t*     bufTx,
 #endif
 }
 
-void MySPI_SendData(uint8_t da)
+/*void MySPI_SendData(uint8_t da)
 {
     while(__HAL_SPI_GET_FLAG(&hspi1, SPI_FLAG_TXE)==RESET);
     SPI1->DR = da;
@@ -189,13 +240,22 @@ uint8_t MySPI_ReceiveData(void)
 {
     while(__HAL_SPI_GET_FLAG(&hspi1, SPI_FLAG_RXNE)==RESET);
     return (uint8_t)SPI1->DR;
-}
+}*/
 
 uint8_t SPI_ReadWriteByte(uint8_t TxData)
 {
 	uint8_t Rxdata;
 	HAL_SPI_TransmitReceive(&hspi1, &TxData, &Rxdata, 1, 1000);
 	return Rxdata;    //返回收到的数据
+}
+
+int32_t spi_write_and_read(SPI_HandleTypeDef* hspi, uint8_t* buf, int32_t len)
+{
+	len--;
+	uint8_t reg_addr = buf[0];
+    for(int i=1; len>0; i++,reg_addr++,len--)
+		HAL_SPI_TransmitReceive(hspi, &reg_addr, buf+i, 1, 1000);
+	return 0;
 }
 //=========================== private =========================================
 

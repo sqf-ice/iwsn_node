@@ -461,8 +461,7 @@ void radio_spiReadRxFifo(uint8_t* pBufRead,
 
 PORT_TIMER_WIDTH radio_getCapturedTime()
 {
-	//return PORT_RADIO_CAPTURED_TIME();
-	return 0;
+	return PORT_RADIO_CAPTURED_TIME();
 }
 
 void radio_disableIRQ()

@@ -1,7 +1,7 @@
 /*
  * Copyright: Beijing Jiaotong University, 2018-2022.
  * Filename: uart.h
- * Author: Yipeng Cun <cunyipeng@bjtu.edu.cn>, Hongpeng Jing <16120076@bjtu.edu.cn>
+ * Author: Hongchao Wang <hcwang@bjtu.edu.cn>, Yipeng Cun <cunyipeng@bjtu.edu.cn>, Hongpeng Jing <16120076@bjtu.edu.cn>
  * Date: Jan 8th, 2018
  * Function: the source/header of the project
  */

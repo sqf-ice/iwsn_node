@@ -1,7 +1,7 @@
 /**
 \brief General IWSN "echo.c"
 
-\author Yipeng Cun <cunyipeng@bjtu.edu.cn>, Jan 2018.
+\author Hongchao Wang <hcwang@bjtu.edu.cn>, Yipeng Cun <cunyipeng@bjtu.edu.cn>, Jan 2018.
 */
 
 //=========================== include =========================================
